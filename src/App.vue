@@ -37,4 +37,13 @@ export default {
 .col {
   flex-direction: column;
 }
+
+.row {
+  flex-direction: row;
+}
+
+.item {
+  flex-grow: 1;
+  padding: 0 5px;
+}
 </style>
