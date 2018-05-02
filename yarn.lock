@@ -4894,6 +4894,10 @@ tar@^4:
     safe-buffer "^5.1.1"
     yallist "^3.0.2"
 
+the-grid-flexbox@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/the-grid-flexbox/-/the-grid-flexbox-2.0.1.tgz#5e6dab1c74c84a183edec456a4551f764a4522b6"
+
 thunky@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.0.2.tgz#a862e018e3fb1ea2ec3fce5d55605cf57f247371"

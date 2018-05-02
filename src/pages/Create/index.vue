@@ -1,5 +1,5 @@
 <template>
-  <div class="container col brd">
+  <div class="container column">
     <div class="item">
       <h2>Create</h2>
     </div>
@@ -8,7 +8,7 @@
     </div>
     <div class="item">
       <div class="container">
-        <div class="item">
+        <div class="item flex-basis-500">
           <form v-on:submit.prevent="save(exercise)">
             <div>
               <label for="exercise_title">Title</label>
@@ -56,7 +56,7 @@
             </div>
           </form>
         </div>
-        <div class="item">
+        <div class="item flex-basis-500">
           <div class="container col question" v-for="(qst, index) in exercise.questions">
             <div class="item">
               <img :src="qst.img">

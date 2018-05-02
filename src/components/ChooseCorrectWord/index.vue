@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="item">
-      <div class="container col">
+    <div class="item flex-basis-500">
+      <div class="container column">
         <div class="item">
           <video
             :src="exercise.src"
@@ -14,11 +14,11 @@
         </div>
         <div class="item">
           <div class="container">
-            <div class="item button">
+            <div class="item flex-basis-100">
               <button @click="play()" v-if="!isPlaying" :disabled="!loaded">Play</button>
               <button @click="pause()" v-else :disabled="!loaded">Pause</button>
             </div>
-            <div class="item full">
+            <div class="item flex-basis-500">
               <input
                 type="range"
                 v-model="currentTime"
@@ -28,7 +28,7 @@
                 @input="durationChanged(currentTime)"
               />
             </div>
-            <div class="item volume">
+            <div class="item flex-basis-200">
               <input
                 type="range"
                 v-model="volume"
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="item">
+    <div class="item flex-basis-500">
       <Answers :questions="exercise.questions.slice()"/>
     </div>
   </div>
@@ -104,24 +104,5 @@ video {
 
 input[type="range"] {
   width: 100%;
-}
-
-.item.full {
-  flex-grow: 6;
-}
-
-.item.button {
-  flex-grow: 0.25;
-}
-
-.item.button button {
-  width: 100px;
-  padding: 5px;
-  border-radius: 10px;
-  margin-bottom: 5px;
-}
-
-.item.volume {
-  flex-grow: 0.25;
 }
 </style>

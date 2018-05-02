@@ -1,9 +1,9 @@
 <template>
-  <div class="container col">
+  <div class="container column">
     <div class="item">
       <h3>Answers</h3>
     </div>
-    <div class="container col">
+    <div class="container column">
       <div class="item">
         <div v-for="(qst, index) in questions" :class="{ disabled: !qst.answered }" :ref="`question-${index}`" @click="viewCurrent(qst)">
           <div>
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="container row">
-      <div class="item" v-for="(word, index) in question.words" @click="select(word, $event.target)">
+      <div class="item flex-basis-100" v-for="(word, index) in question.words" @click="select(word, $event.target)">
         <span class="option" :class="{ right: (word.correct && question.answered), wrong: (!word.correct && word.selected && question.answered) }"> {{ word.word }} </span>
       </div>
     </div>

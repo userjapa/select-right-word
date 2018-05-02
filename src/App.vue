@@ -17,33 +17,5 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-.brd {
-  border: 2px solid #d6d6d6;
-}
-
-.container {
-  display: flex;
-}
-
-.col {
-  flex-direction: column;
-}
-
-.row {
-  flex-direction: row;
-}
-
-.item {
-  flex-grow: 1;
-  padding: 0 5px;
-}
+@import 'assets/css/main.scss';
 </style>
