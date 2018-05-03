@@ -74,7 +74,7 @@
                 <div class="item flex-basis-150">
                   <label for="exercise_question_audio">Audio Source</label>
                 </div>
-                <input id="exercise_question_audio" class="input" type="text" v-model="question.src" @click="question.src = `https://vignette.wikia.nocookie.net/leagueoflegends/images/8/87/CorporateMundo.attack6.ogg/revision/latest?cb=20120615005157`" required/>
+                <input id="exercise_question_audio" class="input" type="text" v-model="question.src" @click="question.src = `https://vignette.wikia.nocookie.net/leagueoflegends/images/e/e6/Lux.move05.ogg/revision/latest?cb=20170310092306`" required/>
               </div>
               <div class="container justify-content-center">
                 <div class="item">
@@ -120,30 +120,30 @@ export default {
         src: `https://r6---sn-bg07dnss.googlevideo.com/videoplayback?requiressl=yes&id=c55baa6a3a1305fd&itag=18&source=blogger&app=blogger&ip=0.0.0.0&ipbits=0&expire=1527252410&sparams=expire,id,ip,ipbits,itag,mip,mm,mn,ms,mv,pl,requiressl,sc,source&signature=7C24220B9E2AA552E75565CC8B2A12B2406A5F2F.BFF541F4130A46419936EC391789AD5602E3EB&key=cms1&cms_redirect=yes&mip=2001:1284:f013:1673:cc72:891c:55dc:b6ae&mm=30&mn=sn-bg07dnss&ms=nxu&mt=1525104864&mv=m&pl=33&sc=yes`,
         questions: [
           {
-            title: 'Whats is her best food:',
+            title: 'The world has seen enough darkness',
             img: `https://images.vexels.com/media/users/3/127025/isolated/preview/65b9b09e8a7b960d637ffd0a6e378575-walter-white-cartoon-character-by-vexels.png`,
-            src: `https://vignette.wikia.nocookie.net/leagueoflegends/images/8/87/CorporateMundo.attack6.ogg/revision/latest?cb=20120615005157`,
+            src: `https://vignette.wikia.nocookie.net/leagueoflegends/images/e/e6/Lux.move05.ogg/revision/latest?cb=20170310092306`,
             playing: false,
             answered: false,
             words: [
               {
-                word: 'Hello',
+                word: 'Darkness',
                 correct: true
               },
               {
-                word: 'Hey',
+                word: 'Brightness',
                 correct: false
               },
               {
-                word: 'Hi',
+                word: 'Endless',
                 correct: false
               },
               {
-                word: 'Honey',
+                word: 'Heartless',
                 correct: false
               },
               {
-                word: 'Harvey',
+                word: 'Kindness',
                 correct: false
               }
             ]
@@ -151,30 +151,30 @@ export default {
         ]
       },
       question: {
-        title: 'Whats is her best food:',
+        title: 'Hello there. I am looking for a place to stay tonigh',
         img: `https://images.vexels.com/media/users/3/127025/isolated/preview/65b9b09e8a7b960d637ffd0a6e378575-walter-white-cartoon-character-by-vexels.png`,
         src: `https://vignette.wikia.nocookie.net/leagueoflegends/images/8/87/CorporateMundo.attack6.ogg/revision/latest?cb=20120615005157`,
         playing: false,
         answered: false,
         words: [
           {
-            word: 'Hello',
+            word: 'Place',
             correct: true
           },
           {
-            word: 'Hey',
+            word: 'Plate',
             correct: false
           },
           {
-            word: 'Hi',
+            word: 'Lace',
             correct: false
           },
           {
-            word: 'Honey',
+            word: 'Haze',
             correct: false
           },
           {
-            word: 'Harvey',
+            word: 'Chase',
             correct: false
           }
         ]

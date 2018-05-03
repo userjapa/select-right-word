@@ -13,7 +13,7 @@
             <button @click="pause(`audio-${index}`)" v-if="qst.playing">Pause</button>
           </div>
         </div>
-        <div class="item flex-basis-50 image">
+        <div class="flex-basis-100 image">
           <img :src="qst.img">
         </div>
         <p>
@@ -123,7 +123,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 img {
-    width: inherit;
+    width: 100%;
+    height: auto;
     vertical-align: middle;
     border-style: none;
 }
@@ -163,6 +164,10 @@ img {
     cursor: pointer;
 }
 
+.audio {
+    margin: 10px;
+}
+
 .audio-play {
     background: #27c6c7;
     background: linear-gradient(56.5deg,#27c6c7,#118ad3);
@@ -184,10 +189,11 @@ img {
 }
 
 .image {
-    margin-right: 10px;
-    background: red;
-    width: 60px;
-    min-width: 60px;
+    display: inline-block;
+    // margin-right: 10px;
+    // background: red;
+    // width: 60px;
+    // min-width: 60px;
     border-radius: 6px;
     overflow: hidden;
 }
