@@ -4,12 +4,12 @@
       <h2>Preview</h2>
     </div>
     <div>
-      <ChooseCorrectWord :exercise="exercise"/>
+      <Answers :exercise="exercise"/>
     </div>
   </div>
 </template>
 <script>
-import ChooseCorrectWord from '../../components/ChooseCorrectWord'
+import Answers from '../../components/Answers'
 
 export default {
   name: "Preview",
@@ -19,7 +19,7 @@ export default {
     }
   },
   components: {
-    ChooseCorrectWord
+    Answers
   }
 }
 </script>

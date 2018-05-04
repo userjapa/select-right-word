@@ -3,39 +3,54 @@
   <div class="item">
     <h3>Answers</h3>
   </div>
-  <div class="container column">
-    <div class="item">
-      <div class="container align-items-center question__item" v-for="(qst, index) in exercise.questions" :class="{ disabled: !qst.answered }" :ref="`question-${index}`" @click="viewCurrent(qst)">
-        <div class="item">
-          <div class="audio-play">
-            <audio :src="qst.src" :ref="`audio-${index}`" @playing="qst.playing = true" @pause="qst.playing = false" />
-            <button @click="play(`audio-${index}`)" v-if="!qst.playing">Play</button>
-            <button @click="pause(`audio-${index}`)" v-if="qst.playing">Pause</button>
+  <div class="item">
+    <div class="container column">
+      <div class="item item-border">
+        <div class="container">
+          <div class="item flex-basis-500 item-border">
+            <ChooseCorrectWord :exercise="exercise"/>
+          </div>
+          <div class="item flex-basis-500 item-border">
+            <div class="container align-items-center question__item" v-for="(qst, index) in exercise.questions" :class="{ disabled: !qst.answered }" :ref="`question-${index}`" @click="viewCurrent(qst)">
+              <div class="item">
+                <div class="audio-play">
+                  <audio :src="qst.src" :ref="`audio-${index}`" @playing="qst.playing = true" @pause="qst.playing = false" />
+                  <button @click="play(`audio-${index}`)" v-if="!qst.playing">Play</button>
+                  <button @click="pause(`audio-${index}`)" v-if="qst.playing">Pause</button>
+                </div>
+              </div>
+              <div class="flex-basis-100 image">
+                <img :src="qst.img">
+              </div>
+              <p>
+                {{ spliceIntoArray(qst).first }} <span class="option" :class="{ right: qst.answered && checkSelected(qst.words), wrong: qst.answered && !checkSelected(qst.words) }"> {{ getSelected(qst.words) }} </span> {{ spliceIntoArray(qst).last }}
+              </p>
+            </div>
           </div>
         </div>
-        <div class="flex-basis-100 image">
-          <img :src="qst.img">
-        </div>
-        <p>
-          {{ spliceIntoArray(qst).first }} <span class="option" :class="{ right: qst.answered && checkSelected(qst.words), wrong: qst.answered && !checkSelected(qst.words) }"> {{ getSelected(qst.words) }} </span> {{ spliceIntoArray(qst).last }}
-        </p>
       </div>
-    </div>
-  </div>
-  <div class="container row">
-    <div class="item flex-basis-50" v-for="(word, index) in question.words" @click="select(word, $event.target)">
-      <span class="option" :class="{ right: (word.correct && question.answered), wrong: (!word.correct && word.selected && question.answered) }"> {{ word.word }} </span>
-    </div>
-  </div>
-  <div class="container">
-    <div class="item">
-      <button @click="setCurrent(exercise.questions)" :disabled="!question.answered" v-if="!exercise.ended">Next</button>
-      <p v-if="exercise.ended">Finished!</p>
+      <div class="item item-border">
+        <div class="container align-items-end justify-content-end">
+          <div class="item">
+            <div class="container row justify-content-around">
+              <div class="item flex-basis-0" v-for="(word, index) in question.words" @click="select(word, $event.target)">
+                <span class="option" :class="{ right: (word.correct && question.answered), wrong: (!word.correct && word.selected && question.answered) }"> {{ word.word }} </span>
+              </div>
+              <div class="item">
+                <button class="btn next" @click="setCurrent(exercise.questions)" :disabled="!question.answered" v-if="!exercise.ended">Next</button>
+                <p class="btn next" v-if="exercise.ended">Finished!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 </template>
 <script>
+import ChooseCorrectWord from '../../components/ChooseCorrectWord'
+
 export default {
   name: "Answers",
   data() {
@@ -110,6 +125,9 @@ export default {
   props: [
     'exercise'
   ],
+  components: {
+    ChooseCorrectWord
+  },
   watch: {
     'exercise.questions': function() {
       this.setCurrent(this.exercise.questions)
@@ -189,11 +207,13 @@ img {
 
 .image {
     display: inline-block;
-    // margin-right: 10px;
-    // background: red;
-    // width: 60px;
-    // min-width: 60px;
     border-radius: 6px;
     overflow: hidden;
+}
+
+.btn.next {
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 6px 20px
 }
 </style>

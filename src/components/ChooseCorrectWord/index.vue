@@ -41,14 +41,9 @@
         </div>
       </div>
     </div>
-    <div class="item flex-basis-500">
-      <Answers :exercise="exercise"/>
-    </div>
   </div>
 </template>
 <script>
-import Answers from '../Answers'
-
 export default {
   name: "ChooseCorrectWord",
   data () {
@@ -85,9 +80,6 @@ export default {
   props: [
     `exercise`
   ],
-  components: {
-    Answers
-  },
   watch: {
     'exercise.src': function () {
       this.duration = 0
