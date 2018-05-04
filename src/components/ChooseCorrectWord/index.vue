@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="item flex-basis-500">
-      <Answers :questions="exercise.questions.slice()"/>
+      <Answers :exercise="exercise"/>
     </div>
   </div>
 </template>

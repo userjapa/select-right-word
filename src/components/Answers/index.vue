@@ -5,7 +5,7 @@
   </div>
   <div class="container column">
     <div class="item">
-      <div class="container align-items-center question__item" v-for="(qst, index) in questions" :class="{ disabled: !qst.answered }" :ref="`question-${index}`" @click="viewCurrent(qst)">
+      <div class="container align-items-center question__item" v-for="(qst, index) in exercise.questions" :class="{ disabled: !qst.answered }" :ref="`question-${index}`" @click="viewCurrent(qst)">
         <div class="item">
           <div class="audio-play">
             <audio :src="qst.src" :ref="`audio-${index}`" @playing="qst.playing = true" @pause="qst.playing = false" />
@@ -29,8 +29,8 @@
   </div>
   <div class="container">
     <div class="item">
-      <button @click="setCurrent(questions)" :disabled="!question.answered" v-if="!ended">Next</button>
-      <p v-if="ended">Finished!</p>
+      <button @click="setCurrent(exercise.questions)" :disabled="!question.answered" v-if="!exercise.ended">Next</button>
+      <p v-if="exercise.ended">Finished!</p>
     </div>
   </div>
 </div>
@@ -42,8 +42,7 @@ export default {
     return {
       question: {
         words: []
-      },
-      ended: false
+      }
     }
   },
   methods: {
@@ -57,14 +56,14 @@ export default {
           break
         } else {
           if (parseInt(index) === (questions.length - 1)) {
-            this.ended = true
+            this.exercise.ended = true
             this.question = questions[index]
           }
         }
       }
     },
     viewCurrent(question) {
-      if (question.answered) this.question = question
+      if (question.answered && this.exercise.ended) this.question = question
     },
     play(el) {
       this.$refs[el][0].play()
@@ -109,15 +108,15 @@ export default {
     }
   },
   props: [
-    'questions'
+    'exercise'
   ],
   watch: {
-    'questions': function(questions) {
-      this.setCurrent(questions)
+    'exercise.questions': function() {
+      this.setCurrent(this.exercise.questions)
     }
   },
   mounted() {
-    this.setCurrent(this.questions)
+    this.setCurrent(this.exercise.questions)
   }
 }
 </script>
