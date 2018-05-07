@@ -5,10 +5,13 @@
   </div>
   <div class="item">
     <div class="container column">
+      <div class="item">
+        <h4>{{ exercise.title }}</h4>
+      </div>
       <div class="item item-border">
         <div class="container">
-          <div class="item flex-basis-500 item-border">
-            <ChooseCorrectWord :exercise="exercise"/>
+          <div class="item flex-basis-500 item-border no-padding">
+            <ChooseCorrectWord :exercise="exercise" ref="player"/>
           </div>
           <div class="item flex-basis-500 item-border">
             <div class="container align-items-center question__item" v-for="(qst, index) in exercise.questions" :class="{ disabled: !qst.answered }" :ref="`question-${index}`" @click="viewCurrent(qst)">
@@ -37,7 +40,7 @@
                 <span class="option" :class="{ right: (word.correct && question.answered), wrong: (!word.correct && word.selected && question.answered) }"> {{ word.word }} </span>
               </div>
               <div class="item">
-                <button class="btn next" @click="setCurrent(exercise.questions)" :disabled="!question.answered" v-if="!exercise.ended">Next</button>
+                <button class="btn next" @click="next(exercise.questions)" :disabled="!question.answered" v-if="!exercise.ended">Next</button>
                 <p class="btn next" v-if="exercise.ended">Finished!</p>
               </div>
             </div>
@@ -66,13 +69,15 @@ export default {
         if (!questions[index].answered) {
           this.question = questions[index]
           setTimeout(() => {
-            this.$refs[`question-${index}`][0].classList.remove(`disabled`)
+            this.$refs['player'].setInterruption(questions[index].time)
           }, 0)
           break
         } else {
           if (parseInt(index) === (questions.length - 1)) {
             this.exercise.ended = true
             this.question = questions[index]
+            this.$refs['player'].setInterruption(0)
+            this.$refs['player'].end()
           }
         }
       }
@@ -120,6 +125,13 @@ export default {
       const index = words.findIndex(x => x.selected)
       if (index >= 0) return words[index].word
       return ``
+    },
+    getCurrentTime () {
+      return this.$refs['player'].getCurrentTime()
+    },
+    next (questions) {
+      this.setCurrent(questions)
+      this.$refs['player'].answer()
     }
   },
   props: [
@@ -215,5 +227,9 @@ img {
   font-size: 14px;
   border-radius: 20px;
   padding: 6px 20px
+}
+
+.no-padding {
+  padding: 0
 }
 </style>

@@ -16,6 +16,7 @@ export default new Vuex.Store({
           src: `https://vignette.wikia.nocookie.net/leagueoflegends/images/e/e6/Lux.move05.ogg/revision/latest?cb=20170310092306`,
           playing: false,
           answered: false,
+          time: 3,
           words: [
             {
               word: 'Darkness',

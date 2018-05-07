@@ -4,7 +4,7 @@
     <h2>Create</h2>
   </div>
   <div class="item item-border">
-    <ChooseCorrectWord :exercise="exercise" />
+    <Answers :exercise="exercise" ref="video"/>
   </div>
   <div class="item item-border">
     <div class="container">
@@ -76,6 +76,13 @@
                 </div>
                 <input id="exercise_question_audio" class="input" type="text" v-model="question.src" @click="question.src = `https://vignette.wikia.nocookie.net/leagueoflegends/images/e/e6/Lux.move05.ogg/revision/latest?cb=20170310092306`" required/>
               </div>
+              <div class="container">
+                <div class="item flex-basis-150">
+                  <label for="exercise_question_time">Time</label>
+                </div>
+                <input id="exercise_question_audio" class="input small" type="number" v-model="question.time" required>
+                <button class="btn" @click.prevent="getCurrentTime()">Get Current</button>
+              </div>
               <div class="container justify-content-center">
                 <div class="item">
                   <button class="btn small btn-primary" type="submit" name="save_question" v-if="!isToUpdate">Add Question</button>
@@ -109,7 +116,7 @@
 </div>
 </template>
 <script>
-import ChooseCorrectWord from '../../components/ChooseCorrectWord'
+import Answers from '../../components/Answers'
 
 export default {
   name: "Create",
@@ -122,6 +129,7 @@ export default {
         src: `https://vignette.wikia.nocookie.net/leagueoflegends/images/8/87/CorporateMundo.attack6.ogg/revision/latest?cb=20120615005157`,
         playing: false,
         answered: false,
+        time: 3,
         words: [
           {
             word: 'Place',
@@ -209,6 +217,9 @@ export default {
         words: []
       }
       this.$store.commit('setToUpdate', null)
+    },
+    getCurrentTime () {
+      console.log(this.$refs['video'].getCurrentTime())
     }
   },
   computed: {
@@ -217,7 +228,7 @@ export default {
     }
   },
   components: {
-    ChooseCorrectWord
+    Answers
   },
   mounted () {
     this.exercise = this.$store.getters['getExercise']
@@ -234,5 +245,9 @@ img {
     font-size: 12px;
     margin-bottom: 5px;
     min-width: 60px;
+}
+
+.input.small {
+  width: 55%;
 }
 </style>

@@ -12,6 +12,7 @@
   "dependencies": {
     "the-grid-flexbox": "^2.0.1",
     "vue": "^2.5.11",
+    "vue-plyr": "^3.0.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

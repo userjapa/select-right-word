@@ -1,49 +1,12 @@
 <template>
   <div class="container">
-    <div class="item flex-basis-500">
-      <div class="container column">
-        <div class="item">
-          <video
-            :src="exercise.src"
-            ref="video"
-            @loadeddata="loadedData($event.target)"
-            @playing="isPlaying = true"
-            @pause="isPlaying = false"
-            @timeupdate="timeUpdated($event.target)"
-          />
-        </div>
-        <div class="item">
-          <div class="container">
-            <div class="item flex-basis-100">
-              <button @click="play()" v-if="!isPlaying" :disabled="!loaded">Play</button>
-              <button @click="pause()" v-else :disabled="!loaded">Pause</button>
-            </div>
-            <div class="item flex-basis-500">
-              <input
-                type="range"
-                v-model="currentTime"
-                step="0.000001"
-                :max="duration"
-                @change="durationChanged(currentTime)"
-                @input="durationChanged(currentTime)"
-              />
-            </div>
-            <div class="item flex-basis-200">
-              <input
-                type="range"
-                v-model="volume"
-                step="0.0001" max="1"
-                @change="volumeChanged(volume)"
-                @input="volumeChanged(volume)"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <PlyrVideo poster="" :videos="[ { src: exercise.src, format: 'mp4' }]" ref="video" :emit="['timeupdate', 'play']" @timeupdate="timeUpdated" @play="play"/>
   </div>
 </template>
 <script>
+import { PlyrVideo } from 'vue-plyr'
+import 'vue-plyr/dist/vue-plyr.css'
+
 export default {
   name: "ChooseCorrectWord",
   data () {
@@ -52,40 +15,63 @@ export default {
       isPlaying: false,
       duration: 0,
       currentTime: 0,
+      oldTime: null,
       volume: 1,
+      ended: false,
+      interruption: 0,
+      answered: false,
+      first: true,
       ended: false
     }
   },
   methods: {
-    play () {
-      this.$refs['video'].play()
+    play (ev) {
+      if (!this.first) {
+        if (!this.ended) {
+          if (!this.answered) {
+            this.pause()
+            alert('Answer first!')
+          }
+        }
+      }
+    },
+    end () {
+      this.ended = true
+    },
+    answer () {
+      this.answered = true
+      this.first = true
+    },
+    setInterruption (time) {
+      this.answered = false
+      this.interruption = parseFloat(time)
+    },
+    timeUpdated () {
+      const time = this.$refs['video']._data.player.currentTime
+      if (this.oldTime === null) this.oldTime = time
+      else this.oldTime = this.currentTime
+      this.currentTime = time
+      console.log(this.oldTime, this.currentTime);
+      if (this.interruption >= 0) {
+        // if (this.oldTime <= this.interruption && this.currentTime >= this.interruption) console.log('pause')
+        if ((this.interruption >= this.oldTime) && (this.interruption <= this.currentTime)) {
+          if (this.first) this.first = false
+          this.pause()
+        }
+      }
+    },
+    getCurrentTime () {
+      return this.$refs['video']._data.player.currentTime
     },
     pause () {
-      this.$refs['video'].pause()
-    },
-    loadedData (video) {
-      this.duration = video.duration
-      this.loaded = true
-    },
-    timeUpdated (video) {
-      this.currentTime = video.currentTime
-    },
-    durationChanged (time) {
-      this.$refs['video'].currentTime = time
-    },
-    volumeChanged (volume) {
-      this.$refs['video'].volume = volume
+      this.$refs['video']._data.player.pause()
     }
   },
   props: [
     `exercise`
   ],
-  watch: {
-    'exercise.src': function () {
-      this.duration = 0
-      this.loaded = false
-      this.$refs['video'].load()
-    }
+  components: {
+    PlyrVideo
   }
 }
 </script>
